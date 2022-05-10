@@ -1,21 +1,14 @@
-import React from 'react'
-import { app } from '../firebase'
-import { getAuth, signOut } from "firebase/auth";
+import React from 'react';
+import { useFirebaseContext } from '../context/FirebaseContext';
 
-
-export const Home = ({ checkAuth, user }) => {
-  const auth = getAuth(app);
-
-  const handleSignout = async () => {
-    await signOut(auth)
-    checkAuth()
-  }
+export const Home = () => {
+  const { user, handleSignout } = useFirebaseContext();
 
   return (
     <>
       <div>Welcome to Home</div>
-      {user ? <p>Logged in as: {user.email}</p> : null}
+      <p>Logged in as: {user.email}</p>
       <button onClick={handleSignout}>Sign Out</button>
     </>
-  )
-}
+  );
+};
