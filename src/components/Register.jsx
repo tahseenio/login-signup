@@ -45,11 +45,11 @@ export const Register = () => {
       <form onSubmit={handleSubmit(onRegisterSubmit)}>
         <h1>Signup</h1>
         <p>{registerError}</p>
-        <input {...register('email')} placeholder='email' />
+        <input {...register('email')} placeholder='email' style={(errors.email) ? { borderColor: 'red' } : null} />
         <p>{errors.email?.message}</p>
-        <input {...register('password')} type='password' placeholder='password' />
+        <input {...register('password')} type='password' placeholder='password' style={(errors.password) ? { borderColor: 'red' } : null} />
         <p>{errors.password?.message}</p>
-        <input {...register('passwordConfirmation')} type='password' placeholder='Confirm password' />
+        <input {...register('passwordConfirmation')} type='password' placeholder='Confirm password' style={(errors.passwordConfirmation) ? { borderColor: 'red' } : null} />
         <p>{errors.passwordConfirmation?.message}</p>
         <button type='submit'>Signup</button>
       </form>

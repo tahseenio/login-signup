@@ -50,9 +50,9 @@ export const Login = () => {
       <form onSubmit={handleSubmit(onLoginSubmit)}>
         <h1>Login</h1>
         <p>{LoginError}</p>
-        <input {...register('email')} placeholder='email' />
+        <input {...register('email')} placeholder='email' style={(errors.email) ? { borderColor: 'red' } : null} />
         <p>{errors.email?.message}</p>
-        <input {...register('password')} type='password' placeholder='password' />
+        <input {...register('password')} type='password' placeholder='password' style={(errors.password) ? { borderColor: 'red' } : null} />
         <p>{errors.password?.message}</p>
         <button>Login</button>
       </form>
