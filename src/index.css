@@ -52,7 +52,7 @@ LOGIN AND SIGNUP
 .form__login--wrapper {
   border-radius: 20px;
   position: absolute;
-  background-color: #202d36;
+  background: linear-gradient(145deg, #1d2931, #22303a);
   padding: 40px;
   box-shadow: 23px 23px 46px #151e24, -23px -23px 46px #2b3c48;
 
