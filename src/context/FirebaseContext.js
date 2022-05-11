@@ -5,7 +5,8 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -50,6 +51,10 @@ export const FirebaseContextProvider = ({ children }) => {
     setUser(null)
   };
 
+  const forgotPassword = (email) => {
+    return sendPasswordResetEmail(auth, email)
+  }
+
   const SignInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
@@ -64,6 +69,7 @@ export const FirebaseContextProvider = ({ children }) => {
         createUser,
         handleSignout,
         SignInWithGoogle,
+        forgotPassword,
         isLoading
       }}
     >
