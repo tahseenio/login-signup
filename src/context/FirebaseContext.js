@@ -51,11 +51,7 @@ export const FirebaseContextProvider = ({ children }) => {
 
   const SignInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    try {
-      return signInWithPopup(auth, provider);
-    } catch (error) {
-      alert(error.code);
-    }
+    return signInWithPopup(auth, provider);
   };
 
   return (
