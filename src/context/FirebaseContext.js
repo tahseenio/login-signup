@@ -14,6 +14,7 @@ export const FirebaseContext = createContext({});
 export const FirebaseContextProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
+  // initially on page load loading is set to true
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

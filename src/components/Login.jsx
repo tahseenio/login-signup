@@ -37,6 +37,8 @@ export const Login = () => {
       setLoginLoading(false)
     } catch (error) {
       setLoginError(error.message)
+      if (error.message === 'Firebase: Error (auth/wrong-password).') setLoginError("Wrong password")
+      if (error.message === 'Firebase: Error (auth/user-not-found).') setLoginError("Email does not exist")
       setLoginLoading(false)
     }
   }
@@ -68,7 +70,6 @@ export const Login = () => {
         </form>
         <button className='button button--google' onClick={onGoogleLogin}> <FcGoogle className='google_icon' /> Login with Google</button>
         <p className='signup__para'>Not a user? <Link to={'/register'}><span className='signup__link'>Sign up now</span></Link></p>
-
       </section>
     </main>
   )
