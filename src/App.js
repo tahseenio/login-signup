@@ -6,6 +6,8 @@ import { Register } from './components/Register';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 const App = () => {
+  // TODO: FIGURE OUT A BETTER WAY TO DO ISLOADING FOR PROTECTEDROUTE AS IT IS A BIT IFFY RIGHT NOW
+  // ADD USER FRIENDLY ERROR MESSAGES FOR LOGIN PAGE
   return (
     <div className='App'>
       <Router>
