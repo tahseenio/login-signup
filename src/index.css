@@ -52,7 +52,7 @@ LOGIN AND SIGNUP
   align-items: center;
   justify-content: center;
 
-  max-width: 400px;
+  max-width: 450px;
   width: calc(100% - 32px);
 }
 
@@ -71,6 +71,7 @@ LOGIN AND SIGNUP
 }
 
 .login__para {
+  text-align: center;
   color: var(--off-white);
   margin-bottom: 12px;
 }
@@ -83,7 +84,7 @@ LOGIN AND SIGNUP
   padding-left: 8px;
   line-height: 40px;
   margin-top: 20px;
-  width: 100%;
+  width: 90%;
 }
 
 .login__input:focus {
@@ -133,6 +134,7 @@ LOGIN AND SIGNUP
 }
 
 .signup__para {
+  text-align: center;
   margin-top: 60px;
   color: var(--off-white);
 }
@@ -296,5 +298,17 @@ LOGIN AND SIGNUP
   100% {
     transform: translate(calc(var(--uib-size) * 0.5)) scale(0.73684);
     opacity: 0.65;
+  }
+}
+
+/* 
+
+iPhone SE height issue fix
+
+*/
+
+@media (max-height: 667px) {
+  .login__header {
+    margin: 20px 0;
   }
 }
