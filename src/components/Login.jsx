@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import * as yup from "yup";
@@ -7,7 +8,9 @@ import { useForm } from 'react-hook-form';
 import { useFirebaseContext } from '../context/FirebaseContext';
 
 export const Login = () => {
-  const { SignInWithGoogle, logIn, setLoginError, loginError } = useFirebaseContext()
+  const [loginError, setLoginError] = useState('')
+
+  const { SignInWithGoogle, logIn } = useFirebaseContext()
   const navigate = useNavigate()
 
   // yup validation

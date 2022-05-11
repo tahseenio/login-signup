@@ -36,10 +36,6 @@ export const FirebaseContextProvider = ({ children }) => {
     )
   }, [])
 
-
-  const [loginError, setLoginError] = useState('')
-  const [registerError, setRegisterError] = useState('')
-
   const logIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
   }
@@ -71,11 +67,7 @@ export const FirebaseContextProvider = ({ children }) => {
         createUser,
         handleSignout,
         SignInWithGoogle,
-        isLoading,
-        loginError,
-        setLoginError,
-        registerError,
-        setRegisterError
+        isLoading
       }}
     >
       {children}
