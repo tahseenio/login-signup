@@ -1,44 +1,62 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import {
-  getAuth,
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword
 } from 'firebase/auth';
-import { app } from '../firebase';
+import { auth } from '../firebase';
 
 export const FirebaseContext = createContext({});
 
 export const FirebaseContextProvider = ({ children }) => {
-  const auth = getAuth(app);
 
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
 
-  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const checkAuth = () => {
+      setIsLoading(true)
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log("useEffect current user:", user.email)
+          setUser(user);
+          setIsLoading(false)
+        }
+        else {
+          setUser(null);
+          setIsLoading(false)
+        }
+      });
+    }
+    return (
+      checkAuth()
+    )
+  }, [])
 
-  const checkAuth = () => {
-    setIsLoading(true);
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        setIsLoading(false);
-      } else {
-        setUser(null);
-        setIsLoading(false);
-      }
-    });
+
+  const [loginError, setLoginError] = useState('')
+  const [registerError, setRegisterError] = useState('')
+
+  const logIn = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password)
+  }
+
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password)
   }
 
   const handleSignout = () => {
     signOut(auth);
-    setUser('');
+    setUser(null)
   };
 
   const SignInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     try {
-      signInWithPopup(auth, provider);
+      return signInWithPopup(auth, provider);
     } catch (error) {
       alert(error.code);
     }
@@ -49,11 +67,15 @@ export const FirebaseContextProvider = ({ children }) => {
       value={{
         auth,
         user,
+        logIn,
+        createUser,
         handleSignout,
         SignInWithGoogle,
-        setUser,
         isLoading,
-        checkAuth
+        loginError,
+        setLoginError,
+        registerError,
+        setRegisterError
       }}
     >
       {children}

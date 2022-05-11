@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
-import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { useFirebaseContext } from '../context/FirebaseContext';
 
 export const Login = () => {
-  const { auth, SignInWithGoogle } = useFirebaseContext()
-  const [LoginError, setLoginError] = useState('')
+  const { SignInWithGoogle, logIn, setLoginError, loginError } = useFirebaseContext()
+  const navigate = useNavigate()
 
   // yup validation
   const schema = yup.object().shape({
@@ -26,20 +25,22 @@ export const Login = () => {
   // react-use-form submit
   const onLoginSubmit = async (data) => {
     try {
-      const { user } = await signInWithEmailAndPassword(auth, data.email, data.password)
-      console.log("Successfuly logged in as: ", user.email)
+      await logIn(data.email, data.password).then(() => navigate('/'))
       setLoginError('')
+    } catch (error) {
+      setLoginError(error.message)
     }
-    catch (error) {
-      alert(error)
-    }
+  }
+
+  const onGoogleLogin = () => {
+    SignInWithGoogle().then(() => navigate('/'))
   }
 
   return (
     <>
       <form onSubmit={handleSubmit(onLoginSubmit)}>
         <h1>Login</h1>
-        <p>{LoginError}</p>
+        <p>{loginError}</p>
         <input {...register('email')} placeholder='email' style={(errors.email) ? { borderColor: 'red' } : null} />
         <p>{errors.email?.message}</p>
         <input {...register('password')} type='password' placeholder='password' style={(errors.password) ? { borderColor: 'red' } : null} />
@@ -47,7 +48,7 @@ export const Login = () => {
         <button>Login</button>
       </form>
       <Link to={'/register'}><button>Sign Up?</button></Link>
-      <button onClick={SignInWithGoogle}>Sign In with Google</button>
+      <button onClick={onGoogleLogin}>Sign In with Google</button>
     </>
   )
 }

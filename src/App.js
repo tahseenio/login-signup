@@ -1,31 +1,22 @@
-import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { useFirebaseContext } from './context/FirebaseContext'
 import { Home } from './pages/Home';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
-import { Loading } from './components/Loading';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 const App = () => {
-  const { user, isLoading, checkAuth } = useFirebaseContext()
-
-  useEffect(() => {
-    checkAuth()
-  }, [])
-
   return (
-    <div className="App">
-      {isLoading ? <Loading /> : null}
+    <div className='App'>
       <Router>
         <Routes>
-          <Route path='/' element={user ? <Home /> : <Login />} />
+          <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
         </Routes>
       </Router>
     </div>
   );
-}
+};
 
 export default App;

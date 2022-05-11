@@ -1,16 +1,13 @@
-import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { useFirebaseContext } from '../context/FirebaseContext';
 
 
 export const Register = () => {
-  const { auth } = useFirebaseContext()
-  const [registerError, setRegisterError] = useState('')
+  const { createUser, setRegisterError, registerError } = useFirebaseContext()
 
   const navigate = useNavigate()
 
@@ -30,14 +27,11 @@ export const Register = () => {
   // react-use-form submit
   const onRegisterSubmit = async (data) => {
     try {
-      const { user } = await createUserWithEmailAndPassword(auth, data.email, data.password)
-      console.log("Successfuly created and logged in as: ", user.email)
-      setRegisterError('')
-      navigate('/')
-    }
-    catch (error) {
+      await createUser(data.email, data.password).then(() => navigate('/'))
+    } catch (error) {
+      console.log(error.message)
       if (error.code === 'auth/email-already-in-use') setRegisterError('The provided email is already in use by an existing user. Each user must have a unique email. If this is your email, please login instead')
-      alert(error)
+      setRegisterError(error.message)
     }
   }
 
