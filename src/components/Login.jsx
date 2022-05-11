@@ -19,7 +19,7 @@ export const Login = () => {
   // yup validation
   const schema = yup.object().shape({
     email: yup.string().email('Please enter a valid email').required('Email is required'),
-    password: yup.string().min(8, 'Password is too short').required('A password is required'),
+    password: yup.string().required('A password is required').min(8, 'Password is too short'),
   });
 
   // react-use-form
