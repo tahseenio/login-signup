@@ -26,13 +26,14 @@ button {
 
 /* 
 
-LOGIN
+LOGIN AND SIGNUP
 
 */
 
 .container__login {
   background-color: #202d36;
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,7 +53,7 @@ LOGIN
   justify-content: center;
 
   max-width: 400px;
-  width: 100%;
+  width: calc(100% - 32px);
 }
 
 .form__login {
@@ -101,12 +102,18 @@ LOGIN
   transition: 300ms;
 }
 
-.button:hover {
+.button:hover,
+.signup__link:hover {
   filter: brightness(1.2);
 }
 
-.button:active {
+.button:active,
+.signup__link:active {
   filter: brightness(1);
+}
+
+.button--login {
+  margin-top: 20px;
 }
 
 .button--google {

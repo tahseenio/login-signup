@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import * as yup from "yup";
@@ -13,16 +13,13 @@ export const Login = () => {
   const [loginLoading, setLoginLoading] = useState(false)
 
   const { SignInWithGoogle, logIn } = useFirebaseContext()
-  const navigate = useNavigate()
 
-  useEffect(() => {
-    console.log("LOGIN LOADING IS", loginLoading)
-  }, [loginLoading])
+  const navigate = useNavigate()
 
   // yup validation
   const schema = yup.object().shape({
     email: yup.string().email('Please enter a valid email').required('Email is required'),
-    password: yup.string().min(8, 'Password must be at least 8 characters long').required('A password is required'),
+    password: yup.string().min(8, 'Password is too short').required('A password is required'),
   });
 
   // react-use-form
@@ -51,7 +48,6 @@ export const Login = () => {
       setLoginError('')
       setLoginLoading(false)
     } catch (error) {
-      setLoginError(error.message)
       setLoginLoading(false)
     }
   }
@@ -61,14 +57,14 @@ export const Login = () => {
       <section className='form__login--wrapper'>
         <form className='form__login' onSubmit={handleSubmit(onLoginSubmit)}>
           <h1 className='login__header'>Login</h1>
-          {loginLoading ? <span class="chaotic-orbit loader"></span> : <span className='loader'>&nbsp;</span>}
+          {loginLoading ? <span className="chaotic-orbit loader"></span> : <span className='loader'>&nbsp;</span>}
           <p className='login__para'>Please login below!</p>
           {loginError ? <p className='text--error'>{loginError}</p > : <p className='text--error'>&nbsp;</p>}
-          <input className='login__input' {...register('email')} placeholder='Email' style={(errors.email) ? { borderColor: 'red' } : null} />
+          <input className='login__input' {...register('email')} placeholder='✉ Email' style={(errors.email) ? { borderColor: 'red' } : null} />
           {errors.email?.message ? <p className='text--error'>{errors.email?.message}</p> : <p className='text--error'>&nbsp;</p>}
-          <input className='login__input' {...register('password')} type='password' placeholder='Password' style={(errors.password) ? { borderColor: 'red' } : null} />
+          <input className='login__input' {...register('password')} type='password' placeholder='🗝 Password' style={(errors.password) ? { borderColor: 'red' } : null} />
           {errors.password?.message ? <p className='text--error'>{errors.password?.message}</p> : <p className='text--error'>&nbsp;</p>}
-          <button className='button'>Login</button>
+          <button className='button button--login'>Login</button>
         </form>
         <button className='button button--google' onClick={onGoogleLogin}> <FcGoogle className='google_icon' /> Login with Google</button>
         <p className='signup__para'>Not a user? <Link to={'/register'}><span className='signup__link'>Sign up now</span></Link></p>
