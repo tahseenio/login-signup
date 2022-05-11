@@ -24,6 +24,15 @@ button {
   text-align: left;
 }
 
+.text--success {
+  margin-top: 4px;
+  width: 100%;
+  color: greenyellow;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+}
+
 /* 
 
 LOGIN AND SIGNUP
@@ -61,7 +70,7 @@ LOGIN AND SIGNUP
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 90%;
 }
 
 .login__header {
@@ -84,7 +93,7 @@ LOGIN AND SIGNUP
   padding-left: 8px;
   line-height: 40px;
   margin-top: 20px;
-  width: 90%;
+  width: 100%;
 }
 
 .login__input:focus {
@@ -137,6 +146,10 @@ LOGIN AND SIGNUP
   text-align: center;
   margin-top: 60px;
   color: var(--off-white);
+}
+
+.signup__para--login {
+  margin-top: 8px;
 }
 
 .signup__link {

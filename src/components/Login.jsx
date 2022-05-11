@@ -69,8 +69,9 @@ export const Login = () => {
           <button className='button button--login'>Login</button>
         </form>
         <button className='button button--google' onClick={onGoogleLogin}> <FcGoogle className='google_icon' /> Login with Google</button>
-        <p className='signup__para'>Not a user? <Link to={'/register'}><span className='signup__link'>Sign up now</span></Link></p>
+        <Link to={'/forgot'}><p className='signup__para signup__link'>Forgot password?</p></Link>
+        <p className='signup__para signup__para--login'>Not a user? <Link to={'/register'}><span className='signup__link'>Sign up now</span></Link></p>
       </section>
-    </main>
+    </main >
   )
 }
