@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from "yup";
@@ -7,7 +8,9 @@ import { useFirebaseContext } from '../context/FirebaseContext';
 
 
 export const Register = () => {
-  const { createUser, setRegisterError, registerError } = useFirebaseContext()
+  const [registerError, setRegisterError] = useState('')
+
+  const { createUser } = useFirebaseContext()
 
   const navigate = useNavigate()
 
