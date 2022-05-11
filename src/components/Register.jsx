@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -35,9 +35,9 @@ export const Register = () => {
       await createUser(data.email, data.password).then(() => navigate('/'))
       setRegisterLoading(false)
     } catch (error) {
-      console.log(error.message)
-      if (error.code === 'auth/email-already-in-use') setRegisterError('The provided email is already in use by an existing user. Each user must have a unique email. If this is your email, please login instead')
       setRegisterError(error.message)
+      console.log(error.message)
+      if (error.code === 'auth/email-already-in-use') setRegisterError('This email already exists. Sign in instead')
       setRegisterLoading(false)
     }
   }
@@ -58,6 +58,7 @@ export const Register = () => {
           {errors.passwordConfirmation?.message ? <p className='text--error'>{errors.passwordConfirmation?.message}</p> : <p className='text--error'>&nbsp;</p>}
           <button className='button' type='submit'>Signup</button>
         </form>
+        <p className='signup__para'>Already a user? <Link to={'/login'}><span className='signup__link'>Log in now</span></Link></p>
       </section>
     </main>
   )
