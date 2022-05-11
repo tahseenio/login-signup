@@ -21,7 +21,7 @@ export const FirebaseContextProvider = ({ children }) => {
       setIsLoading(true)
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          console.log("useEffect current user:", user.email)
+          console.log("Current user:", user.email)
           setUser(user);
           setIsLoading(false)
         }
