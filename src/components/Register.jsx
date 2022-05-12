@@ -14,7 +14,7 @@ export const Register = () => {
   const registerEmailRef = useRef()
 
   useEffect(() => {
-    registerEmailRef.focus()
+    registerEmailRef.current.focus(null)
   }, [])
 
   const { createUser } = useFirebaseContext()

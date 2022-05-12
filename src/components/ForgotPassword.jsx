@@ -9,10 +9,10 @@ import { useFirebaseContext } from '../context/FirebaseContext'
 export const ForgotPassword = () => {
   const { forgotPassword } = useFirebaseContext()
 
-  const forgotPassRef = useRef()
+  const forgotPassRef = useRef(null)
 
   useEffect(() => {
-    forgotPassRef.focus()
+    forgotPassRef.current.focus()
   }, [])
 
   const [resetPassText, setResetPassText] = useState('')
