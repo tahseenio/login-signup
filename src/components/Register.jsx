@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from "yup";
@@ -10,12 +10,6 @@ import { useFirebaseContext } from '../context/FirebaseContext';
 export const Register = () => {
   const [registerError, setRegisterError] = useState('')
   const [registerLoading, setRegisterLoading] = useState(false)
-
-  const registerEmailRef = useRef()
-
-  useEffect(() => {
-    registerEmailRef.current.focus(null)
-  }, [])
 
   const { createUser } = useFirebaseContext()
 
@@ -29,10 +23,14 @@ export const Register = () => {
   });
 
   // react-hook-form
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors }, setFocus } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema)
   })
+
+  useEffect(() => {
+    setFocus('email')
+  }, [])
 
   // react-use-form submit
   const onRegisterSubmit = async (data) => {
@@ -56,7 +54,7 @@ export const Register = () => {
           {registerLoading ? <span className="chaotic-orbit loader"></span> : <span className='loader'>&nbsp;</span>}
           <p className='login__para'>Please create your account below!</p>
           {registerError ? <p className='text--error'>{registerError}</p > : <p className='text--error'>&nbsp;</p>}
-          <input ref={registerEmailRef} className='login__input' {...register('email')} placeholder='✉ Email' style={(errors.email) ? { borderColor: 'red' } : null} />
+          <input className='login__input' {...register('email')} placeholder='✉ Email' style={(errors.email) ? { borderColor: 'red' } : null} />
           {errors.email?.message ? <p className='text--error'>{errors.email?.message}</p> : <p className='text--error'>&nbsp;</p>}
           <input className='login__input' {...register('password')} type='password' placeholder='🗝 Password' style={(errors.password) ? { borderColor: 'red' } : null} />
           {errors.password?.message ? <p className='text--error'>{errors.password?.message}</p> : <p className='text--error'>&nbsp;</p>}
