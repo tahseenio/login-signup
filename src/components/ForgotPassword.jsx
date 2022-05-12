@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from "yup";
@@ -9,12 +9,6 @@ import { useFirebaseContext } from '../context/FirebaseContext'
 export const ForgotPassword = () => {
   const { forgotPassword } = useFirebaseContext()
 
-  const forgotPassRef = useRef(null)
-
-  useEffect(() => {
-    forgotPassRef.current.focus()
-  }, [])
-
   const [resetPassText, setResetPassText] = useState('')
   const [resetPassLoading, setResetPassLoading] = useState(false)
 
@@ -24,10 +18,14 @@ export const ForgotPassword = () => {
   });
 
   // react-use-form
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, setFocus, formState: { errors } } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema)
   })
+
+  useEffect(() => {
+    setFocus('email')
+  }, [])
 
   // react-use-form submit
   const onResetSubmit = async (data) => {
@@ -50,7 +48,7 @@ export const ForgotPassword = () => {
           {resetPassLoading ? <span className="chaotic-orbit loader"></span> : <span className='loader'>&nbsp;</span>}
           <p className='login__para'>Reset your password below</p>
           {resetPassText ? <p className={(resetPassText === 'Success! a password reset email has been sent') ? 'text--success' : 'text--error'}>{resetPassText}</p > : <p className='text--error'>&nbsp;</p>}
-          <input ref={forgotPassRef} className='login__input' {...register('email')} placeholder='✉ Email' style={(errors.email) ? { borderColor: 'red' } : null} />
+          <input className='login__input' {...register('email')} placeholder='✉ Email' style={(errors.email) ? { borderColor: 'red' } : null} />
           {errors.email?.message ? <p className='text--error'>{errors.email?.message}</p> : <p className='text--error'>&nbsp;</p>}
           <button className='button button--login'>Reset Password</button>
         </form>
