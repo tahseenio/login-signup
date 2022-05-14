@@ -35,6 +35,22 @@ button {
 
 /* 
 
+NAV
+
+*/
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 36px;
+}
+
+/* 
+
 LOGIN AND SIGNUP
 
 */
@@ -161,6 +177,20 @@ LOGIN AND SIGNUP
 .loader {
   height: 15px;
   margin-bottom: 16px;
+}
+
+/* 
+
+CHART
+
+*/
+
+.chart__container {
+  position: relative;
+  width: 500px;
+  height: 500px;
+
+  margin: 0 auto;
 }
 
 /* Loading state */
