@@ -78,10 +78,10 @@ export const Home = () => {
   const handleColorSubmit = (e) => {
     e.preventDefault()
     const newColors = {
-      red: redValue,
-      blue: blueValue,
-      green: greenValue,
-      yellow: yellowValue
+      red: Number(redValue),
+      blue: Number(blueValue),
+      green: Number(greenValue),
+      yellow: Number(yellowValue)
     }
     updateColorDatabase(newColors)
   }

@@ -9,7 +9,7 @@ import { ForgotPassword } from './components/ForgotPassword';
 const App = () => {
   // TODO: FIGURE OUT A BETTER WAY TO DO ISLOADING FOR PROTECTEDROUTE AS IT IS A BIT IFFY RIGHT NOW
   // ADD USER FRIENDLY ERROR MESSAGES FOR LOGIN PAGE
-  // add loading state for pie chart data fetching
+  // add loading state for pie chart data fetching and home page when data is being fetched
   // add app check protection
   return (
     <div className='App'>
