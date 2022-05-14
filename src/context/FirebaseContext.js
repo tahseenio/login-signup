@@ -8,7 +8,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail
 } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 
 export const FirebaseContext = createContext({});
 
@@ -64,6 +64,7 @@ export const FirebaseContextProvider = ({ children }) => {
     <FirebaseContext.Provider
       value={{
         auth,
+        db,
         user,
         logIn,
         createUser,
