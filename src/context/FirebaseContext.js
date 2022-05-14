@@ -73,7 +73,7 @@ export const FirebaseContextProvider = ({ children }) => {
         isLoading
       }}
     >
-      {children}
+      {!isLoading ? children : null}
     </FirebaseContext.Provider>
   );
 };
