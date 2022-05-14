@@ -1,17 +1,68 @@
-import React, { useState } from 'react';
-import { useFirebaseContext } from '../context/FirebaseContext';
+import React, { useEffect, useState } from 'react';
+import { doc, setDoc, getDoc, onSnapshot } from 'firebase/firestore'
 
+import { useFirebaseContext } from '../context/FirebaseContext';
 import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
 
 export const Home = () => {
-  const { user, handleSignout } = useFirebaseContext();
-  const [redValue, setRedValue] = useState(30)
-  const [blueValue, setBlueValue] = useState(50)
-  const [yellowValue, setYellowValue] = useState(100)
-  const [greenValue, setGreenValue] = useState(20)
-  const [colorValues, setColorValues] = useState([redValue, blueValue, yellowValue, greenValue])
+  const { user, handleSignout, db } = useFirebaseContext();
 
+  const [colorValues, setColorValues] = useState([])
+  const [redValue, setRedValue] = useState(0)
+  const [blueValue, setBlueValue] = useState(0)
+  const [yellowValue, setYellowValue] = useState(0)
+  const [greenValue, setGreenValue] = useState(0)
+
+  const initColorDatabase = async () => {
+    try {
+      const userNewColors = {
+        red: 50,
+        blue: 30,
+        green: 100,
+        yellow: 20
+      }
+      await setDoc(doc(db, 'users', `${user.email}`), userNewColors)
+      console.log("set new doc for initialisation")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const updateColorDatabase = async (arr) => {
+    try {
+      const userNewColors = { ...arr }
+      await setDoc(doc(db, 'users', `${user.email}`), userNewColors, { merge: true })
+      initDatabase()
+      console.log("set new doc for initialisation")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const userColorRef = doc(db, 'users', `${user.email}`)
+
+  const initDatabase = async () => {
+    const docSnap = await getDoc(userColorRef)
+
+    if (docSnap.exists()) {
+      console.log("DOC EXISTS")
+      const docSnapdata = docSnap.data()
+      setColorValues([docSnapdata.red, docSnapdata.blue, docSnapdata.yellow, docSnapdata.green])
+      setRedValue(docSnapdata.red)
+      setBlueValue(docSnapdata.blue)
+      setYellowValue(docSnapdata.yellow)
+      setGreenValue(docSnapdata.green)
+    } else {
+      console.log("NO DOC EXISTS")
+      initColorDatabase()
+      initDatabase()
+    }
+  }
+
+  useEffect(() => {
+    initDatabase()
+  }, [])
 
   // have an initial data set from 
   // 
@@ -26,7 +77,13 @@ export const Home = () => {
 
   const handleColorSubmit = (e) => {
     e.preventDefault()
-    setColorValues([redValue, blueValue, yellowValue, greenValue])
+    const newColors = {
+      red: redValue,
+      blue: blueValue,
+      green: greenValue,
+      yellow: yellowValue
+    }
+    updateColorDatabase(newColors)
   }
 
   const data = {
