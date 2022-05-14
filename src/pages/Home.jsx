@@ -1,14 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFirebaseContext } from '../context/FirebaseContext';
+
+import 'chart.js/auto';
+import { Doughnut } from 'react-chartjs-2';
 
 export const Home = () => {
   const { user, handleSignout } = useFirebaseContext();
+  const [redValue, setRedValue] = useState(30)
+  const [blueValue, setBlueValue] = useState(50)
+  const [yellowValue, setYellowValue] = useState(100)
+  const [greenValue, setGreenValue] = useState(20)
+  const [colorValues, setColorValues] = useState([redValue, blueValue, yellowValue, greenValue])
+
+
+  // have an initial data set from 
+  // 
+
+  const handleColorChange = (e, color) => {
+    if (typeof e.target.value === 'number') console.log('A NUMER')
+    if (color === 'red') setRedValue(e.target.value)
+    if (color === 'blue') setBlueValue(e.target.value)
+    if (color === 'yellow') setYellowValue(e.target.value)
+    if (color === 'green') setGreenValue(e.target.value)
+  }
+
+  const handleColorSubmit = (e) => {
+    e.preventDefault()
+    setColorValues([redValue, blueValue, yellowValue, greenValue])
+  }
+
+  const data = {
+    labels: [
+      'Red',
+      'Blue',
+      'Yellow',
+      'Green'
+    ],
+    datasets: [{
+      label: 'My First Dataset',
+      data: colorValues,
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(81, 191, 62)'
+      ],
+      hoverOffset: 4
+    }]
+  };
 
   return (
     <>
-      <div>Welcome to Home</div>
-      <p>Logged in as: {user.email}</p>
-      <button onClick={handleSignout}>Sign Out</button>
+      <nav>
+        <p>Welcome to Home</p>
+        <p>Logged in as: {user.email}</p>
+        <button onClick={handleSignout}>Sign Out</button>
+      </nav>
+      <section className="chart__container">
+        <Doughnut data={data} />
+        <form onSubmit={handleColorSubmit}>
+          <p>Red</p>
+          <input type="text" value={redValue} onChange={(e) => handleColorChange(e, 'red')} />
+          <p>Blue</p>
+          <input type="text" value={blueValue} onChange={(e) => handleColorChange(e, 'blue')} />
+          <p>Green</p>
+          <input type="text" value={greenValue} onChange={(e) => handleColorChange(e, 'green')} />
+          <p>Yellow</p>
+          <input type="text" value={yellowValue} onChange={(e) => handleColorChange(e, 'yellow')} />
+          <button>Change Values</button>
+        </form>
+      </section>
     </>
   );
 };
