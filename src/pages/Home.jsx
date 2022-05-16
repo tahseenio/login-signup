@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { doc, setDoc, getDoc, onSnapshot } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 
 import { useFirebaseContext } from '../context/FirebaseContext';
 import 'chart.js/auto';
@@ -7,6 +7,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 export const Home = () => {
   const { user, handleSignout, db } = useFirebaseContext();
+  const [isLoading, setIsLoading] = useState(true)
 
   const [colorValues, setColorValues] = useState([])
   const [redValue, setRedValue] = useState(0)
@@ -53,6 +54,7 @@ export const Home = () => {
       setBlueValue(docSnapdata.blue)
       setYellowValue(docSnapdata.yellow)
       setGreenValue(docSnapdata.green)
+      setIsLoading(false)
     } else {
       console.log("NO DOC EXISTS")
       initColorDatabase()
@@ -62,10 +64,9 @@ export const Home = () => {
 
   useEffect(() => {
     initDatabase()
+    console.log("EXUSTED")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // have an initial data set from 
-  // 
 
   const handleColorChange = (e, color) => {
     if (typeof e.target.value === 'number') console.log('A NUMER')
@@ -83,6 +84,7 @@ export const Home = () => {
       green: Number(greenValue),
       yellow: Number(yellowValue)
     }
+    setIsLoading(true)
     updateColorDatabase(newColors)
   }
 
@@ -113,8 +115,10 @@ export const Home = () => {
         <p>Logged in as: {user.email}</p>
         <button onClick={handleSignout}>Sign Out</button>
       </nav>
-      <section className="chart__container">
-        <Doughnut data={data} />
+      <section className=''>
+        <div className="chart__container">
+          {isLoading ? <div className='chart__skeleton'><div className="chaotic-orbit chaotic-orbit--black loader"></div></div> : <Doughnut data={data} />}
+        </div>
         <form onSubmit={handleColorSubmit}>
           <p>Red</p>
           <input type="text" value={redValue} onChange={(e) => handleColorChange(e, 'red')} />
