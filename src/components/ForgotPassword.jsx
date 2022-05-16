@@ -18,14 +18,10 @@ export const ForgotPassword = () => {
   });
 
   // react-use-form
-  const { register, handleSubmit, setFocus, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema)
   })
-
-  useEffect(() => {
-    setFocus('email')
-  }, [])
 
   // react-use-form submit
   const onResetSubmit = async (data) => {
@@ -52,7 +48,7 @@ export const ForgotPassword = () => {
           {errors.email?.message ? <p className='text--error'>{errors.email?.message}</p> : <p className='text--error'>&nbsp;</p>}
           <button className='button button--login'>Reset Password</button>
         </form>
-        <p className='signup__para'>Reset password? <Link to={'/login'}><span className='signup__link'>Log in now</span></Link></p>
+        <p className='signup__para'>Already reset your password? <Link to={'/login'}><span className='signup__link'>Log in now</span></Link></p>
       </section>
     </main>
   )
