@@ -11,6 +11,7 @@ const App = () => {
   // ADD USER FRIENDLY ERROR MESSAGES FOR LOGIN PAGE
   // add loading state for pie chart data fetching and home page when data is being fetched
   // add app check protection
+  // error handling for piechart set color usestates
   return (
     <div className='App'>
       <Router>

@@ -23,14 +23,10 @@ export const Register = () => {
   });
 
   // react-hook-form
-  const { register, handleSubmit, formState: { errors }, setFocus } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema)
   })
-
-  useEffect(() => {
-    setFocus('email')
-  }, [])
 
   // react-use-form submit
   const onRegisterSubmit = async (data) => {
