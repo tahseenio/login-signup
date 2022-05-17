@@ -47,7 +47,6 @@ export const Register = () => {
       <section className='form__login--wrapper'>
         <form className='form__login' onSubmit={handleSubmit(onRegisterSubmit)}>
           <h1 className='login__header'>Sign Up</h1>
-          {registerLoading ? <span className="chaotic-orbit loader"></span> : <span className='loader'>&nbsp;</span>}
           <p className='login__para'>Please create your account below!</p>
           {registerError ? <p className='text--error'>{registerError}</p > : <p className='text--error'>&nbsp;</p>}
           <input className='login__input' {...register('email')} placeholder='✉ Email' style={(errors.email) ? { borderColor: 'red' } : null} />
@@ -56,7 +55,7 @@ export const Register = () => {
           {errors.password?.message ? <p className='text--error'>{errors.password?.message}</p> : <p className='text--error'>&nbsp;</p>}
           <input className='login__input' {...register('passwordConfirmation')} type='password' placeholder='🗝 Confirm password' style={(errors.passwordConfirmation) ? { borderColor: 'red' } : null} />
           {errors.passwordConfirmation?.message ? <p className='text--error'>{errors.passwordConfirmation?.message}</p> : <p className='text--error'>&nbsp;</p>}
-          <button className='button' type='submit'>Signup</button>
+          <button className='button button--signup' type='submit'>{registerLoading ? <span className="chaotic-orbit"></span> : 'Signup'}</button>
         </form>
         <p className='signup__para'>Already a user? <Link to={'/login'}><span className='signup__link'>Log in now</span></Link></p>
       </section>

@@ -43,6 +43,16 @@ button {
   background-color: rgb(233, 233, 233);
 }
 
+.row {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container {
+  padding: 30px 16px;
+}
+
 /* 
 
 NAV
@@ -151,6 +161,19 @@ LOGIN AND SIGNUP
 
 .button--login {
   margin-top: 20px;
+  min-width: 82px;
+  min-height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button--signup {
+  min-width: 95px;
+  min-height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button--google {
@@ -189,6 +212,11 @@ LOGIN AND SIGNUP
   margin-bottom: 16px;
 }
 
+.testing_purposes {
+  max-width: 500px;
+  width: 100%;
+}
+
 /* 
 
 CHART
@@ -196,12 +224,9 @@ CHART
 */
 
 .home__container {
-  padding: 40px 40px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 
 .chart__container {
