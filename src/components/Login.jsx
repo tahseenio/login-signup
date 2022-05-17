@@ -59,16 +59,15 @@ export const Login = () => {
       <section className='form__login--wrapper'>
         <form className='form__login' onSubmit={handleSubmit(onLoginSubmit)}>
           <h1 className='login__header'>Login</h1>
-          {loginLoading ? <span className="chaotic-orbit loader"></span> : <span className='loader'>&nbsp;</span>}
           <p className='login__para'>Please login below!</p>
           {loginError ? <p className='text--error'>{loginError}</p > : <p className='text--error'>&nbsp;</p>}
           <input className='login__input' {...register('email')} placeholder='✉ Email' style={(errors.email) ? { borderColor: 'red' } : null} />
           {errors.email?.message ? <p className='text--error'>{errors.email?.message}</p> : <p className='text--error'>&nbsp;</p>}
           <input className='login__input' {...register('password')} type='password' placeholder='🗝 Password' style={(errors.password) ? { borderColor: 'red' } : null} />
           {errors.password?.message ? <p className='text--error'>{errors.password?.message}</p> : <p className='text--error'>&nbsp;</p>}
-          <button className='button button--login'>Login</button>
+          <button className='button button--login'>{loginLoading ? <span className="chaotic-orbit"></span> : 'Login'}</button>
         </form>
-        <button className='button button--google' onClick={onGoogleLogin}> <FcGoogle className='google_icon' /> Login with Google</button>
+        <button className='button button--google' onClick={onGoogleLogin}> <FcGoogle className='google_icon' />Login with Google</button>
         <Link to={'/forgot'}><p className='signup__para signup__link'>Forgot password?</p></Link>
         <p className='signup__para signup__para--login'>Not a user? <Link to={'/register'}><span className='signup__link'>Sign up now</span></Link></p>
       </section>

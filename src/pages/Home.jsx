@@ -64,7 +64,6 @@ export const Home = () => {
 
   useEffect(() => {
     initDatabase()
-    console.log("EXUSTED")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -110,7 +109,15 @@ export const Home = () => {
 
   return (
     <>
-      <nav>
+      <main className="container">
+        <div className="row">
+          <div className="home__container">
+            <div className='testing_purposes'>Hello</div>
+
+          </div>
+        </div>
+      </main>
+      {/* <nav>
         <p>Welcome to Home</p>
         <p>Logged in as: {user.email}</p>
         <button onClick={handleSignout}>Sign Out</button>
@@ -130,7 +137,7 @@ export const Home = () => {
           <input type="text" value={yellowValue} onChange={(e) => handleColorChange(e, 'yellow')} />
           <button>Change Values</button>
         </form>
-      </section>
+      </section> */}
     </>
   );
 };
