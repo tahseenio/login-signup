@@ -109,6 +109,9 @@ export const Home = () => {
 
   return (
     <>
+      {/* <aside className="side-bar">
+
+      </aside> */}
       <main className="container">
         <div className="row">
           <div className="home__container">
@@ -117,7 +120,7 @@ export const Home = () => {
           </div>
         </div>
       </main>
-      {/* <nav>
+      <nav>
         <p>Welcome to Home</p>
         <p>Logged in as: {user.email}</p>
         <button onClick={handleSignout}>Sign Out</button>
@@ -137,7 +140,7 @@ export const Home = () => {
           <input type="text" value={yellowValue} onChange={(e) => handleColorChange(e, 'yellow')} />
           <button>Change Values</button>
         </form>
-      </section> */}
+      </section>
     </>
   );
 };

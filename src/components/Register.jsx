@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { motion } from 'framer-motion';
+
 import { useFirebaseContext } from '../context/FirebaseContext';
 
 
@@ -42,9 +44,20 @@ export const Register = () => {
     }
   }
 
+  const registerVariants = {
+    hidden: { opacity: 0, y: "100vh" },
+    visible: { opacity: 1, y: "0" },
+    exit: { opacity: 0 }
+  }
+
   return (
     <main className='container__login'>
-      <section className='form__login--wrapper'>
+      <motion.section
+        variants={registerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className='form__login--wrapper'>
         <form className='form__login' onSubmit={handleSubmit(onRegisterSubmit)}>
           <h1 className='login__header'>Sign Up</h1>
           <p className='login__para'>Please create your account below!</p>
@@ -58,7 +71,7 @@ export const Register = () => {
           <button className='button button--signup' type='submit'>{registerLoading ? <span className="chaotic-orbit"></span> : 'Signup'}</button>
         </form>
         <p className='signup__para'>Already a user? <Link to={'/login'}><span className='signup__link'>Log in now</span></Link></p>
-      </section>
+      </motion.section>
     </main>
   )
 }
