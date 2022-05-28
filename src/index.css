@@ -11,6 +11,10 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+body {
+  overflow: hidden;
+}
+
 button {
   cursor: pointer;
 }
@@ -273,6 +277,18 @@ CHART
 
 .chaotic-orbit::after {
   animation: orbit var(--uib-speed) linear calc(var(--uib-speed) / -2) infinite;
+}
+
+/* 
+
+Home
+
+*/
+
+.side-bar {
+  background-color: red;
+  height: 100vh;
+  width: 300px;
 }
 
 @keyframes rotate936 {

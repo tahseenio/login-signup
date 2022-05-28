@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useFirebaseContext } from '../context/FirebaseContext'
+import { motion } from 'framer-motion';
 
 export const ForgotPassword = () => {
   const { forgotPassword } = useFirebaseContext()
@@ -36,9 +37,21 @@ export const ForgotPassword = () => {
       setResetPassLoading(false)
     }
   }
+
+  const loginVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0, x: "-100vw" }
+  }
   return (
     <main className='container__login'>
-      <section className='form__login--wrapper'>
+      <motion.section
+        variants={loginVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className='form__login--wrapper'
+      >
         <form className='form__login' onSubmit={handleSubmit(onResetSubmit)}>
           <h1 className='login__header'>Reset Password</h1>
           {resetPassLoading ? <span className="chaotic-orbit loader"></span> : <span className='loader'>&nbsp;</span>}
@@ -49,7 +62,7 @@ export const ForgotPassword = () => {
           <button className='button button--login'>Reset Password</button>
         </form>
         <p className='signup__para'>Already reset your password? <Link to={'/login'}><span className='signup__link'>Log in now</span></Link></p>
-      </section>
+      </motion.section>
     </main>
   )
 }
