@@ -27,6 +27,7 @@ A sleek login and signup system where users are able to create a new account or 
 - I realised it was easier to use react-hook-forms than relying on useState to hold form data as it was simpler when it came to handling the data and integrating error handling.
 - I learned how to use yup for error handling and conditionally displaying it. 
 - For the actual login process I decided to learn Firebase as I was able to learn how to create authentication using either an email someone had inputted or logging in using an external service such as Google login. 
+- I learned how to use protected routes so users who are not logged in cannot access certain URLs they do not have access to
 - Learned the basics of Firestore and being able to store and pull data of an existing user. In this case it was being able to store the number values of the different colors of the pie chart.
 
 
