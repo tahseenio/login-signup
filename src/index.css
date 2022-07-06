@@ -12,7 +12,7 @@
 }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 button {
@@ -66,8 +66,8 @@ NAV
 nav {
   display: flex;
   align-items: center;
+  gap: 10px;
   justify-content: space-between;
-  max-width: 600px;
   width: 100%;
   margin: 0 auto;
   margin-bottom: 36px;
@@ -231,13 +231,15 @@ CHART
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 50px;
 }
 
 .chart__container {
   position: relative;
-  width: 500px;
-  height: 500px;
-
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 600px;
   margin: 0 auto;
 }
 
