@@ -6,54 +6,55 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  User,
 } from 'firebase/auth';
 import { auth, db } from '../firebase';
 
-export const FirebaseContext = createContext({});
+export const FirebaseContext = createContext<any>({});
 
-export const FirebaseContextProvider = ({ children }) => {
+export interface ProviderProps {
+  children: JSX.Element;
+}
 
-  const [user, setUser] = useState(null);
+export const FirebaseContextProvider = ({ children }: ProviderProps) => {
+  const [user, setUser] = useState<null | User>(null);
   // initially on page load loading is set to true
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkAuth = () => {
-      setIsLoading(true)
+      setIsLoading(true);
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          console.log("Current user:", user.email)
+          console.log('Current user:', user.email);
           setUser(user);
-          setIsLoading(false)
-        }
-        else {
+          setIsLoading(false);
+        } else {
           setUser(null);
-          setIsLoading(false)
+          setIsLoading(false);
         }
       });
-    }
-    return (
-      checkAuth()
-    )
-  }, [])
+    };
+    return checkAuth();
+  }, []);
 
-  const logIn = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+  const logIn = (email: string, password: string) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password)
-  }
+  const createUser = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
   const handleSignout = () => {
     signOut(auth);
-    setUser(null)
+    setUser(null);
   };
 
-  const forgotPassword = (email) => {
-    return sendPasswordResetEmail(auth, email)
-  }
+  const forgotPassword = (email: string) => {
+    return sendPasswordResetEmail(auth, email);
+  };
 
   const SignInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -71,7 +72,7 @@ export const FirebaseContextProvider = ({ children }) => {
         handleSignout,
         SignInWithGoogle,
         forgotPassword,
-        isLoading
+        isLoading,
       }}
     >
       {!isLoading ? children : null}

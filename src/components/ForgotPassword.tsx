@@ -21,24 +21,28 @@ export const ForgotPassword = () => {
       .required('Email is required'),
   });
 
+  type FormValues = {
+    email: string;
+  };
+
   // react-use-form
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
   });
 
   // react-use-form submit
-  const onResetSubmit = async (data) => {
+  const onResetSubmit = async (data: { email: string }) => {
     setResetPassLoading(true);
     try {
       await forgotPassword(data.email);
       setResetPassText('Success! a password reset email has been sent');
       setResetPassLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       setResetPassText(error.message);
       if (error.message === 'Firebase: Error (auth/user-not-found).')
         setResetPassText('Email not found. Check again');
@@ -49,7 +53,7 @@ export const ForgotPassword = () => {
   const loginVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
-    exit: { opacity: 0, x: '-100vw' },
+    exit: { opacity: 0 },
   };
   return (
     <main className='container__login'>
@@ -86,7 +90,8 @@ export const ForgotPassword = () => {
             className='login__input'
             {...register('email')}
             placeholder='✉ Email'
-            style={errors.email ? { borderColor: 'red' } : null}
+            autoComplete='new-email'
+            style={errors.email ? { borderColor: 'red' } : undefined}
           />
           {errors.email?.message ? (
             <p className='text--error'>{errors.email?.message}</p>
