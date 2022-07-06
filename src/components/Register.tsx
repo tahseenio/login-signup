@@ -64,7 +64,7 @@ export const Register = () => {
     } catch (error: any) {
       setRegisterError(error.message);
       console.log(error.message);
-      if (error.code === 'auth/email-already-in-use')
+      if (error.message === 'auth/email-already-in-use')
         setRegisterError('This email already exists. Sign in instead');
       setRegisterLoading(false);
     }

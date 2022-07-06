@@ -44,9 +44,10 @@ export const ForgotPassword = () => {
       setResetPassLoading(false);
     } catch (error: any) {
       setResetPassText(error.message);
-      if (error.message === 'Firebase: Error (auth/user-not-found).')
+      if (error.message === 'Firebase: Error (auth/user-not-found).') {
         setResetPassText('Email not found. Check again');
-      setResetPassLoading(false);
+        setResetPassLoading(false);
+      }
     }
   };
 
