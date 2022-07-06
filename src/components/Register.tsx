@@ -61,12 +61,14 @@ export const Register = () => {
     try {
       await createUser(data.email, data.password).then(() => navigate('/'));
       setRegisterLoading(false);
-    } catch (error: any) {
-      setRegisterError(error.message);
-      console.log(error.message);
-      if (error.message === 'auth/email-already-in-use')
-        setRegisterError('This email already exists. Sign in instead');
-      setRegisterLoading(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        setRegisterError(error.message);
+        console.log(error.message);
+        if (error.message === 'Firebase: Error (auth/email-already-in-use).')
+          setRegisterError('This email already exists. Sign in instead');
+        setRegisterLoading(false);
+      }
     }
   };
 

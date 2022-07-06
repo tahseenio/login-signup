@@ -56,13 +56,15 @@ export const Login = () => {
       await logIn(data.email, data.password).then(() => navigate('/'));
       setLoginError('');
       setLoginLoading(false);
-    } catch (error: any) {
-      setLoginError(error.message);
-      if (error.message === 'Firebase: Error (auth/wrong-password).')
-        setLoginError('Wrong password');
-      if (error.message === 'Firebase: Error (auth/user-not-found).')
-        setLoginError('Email does not exist');
-      setLoginLoading(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        setLoginError(error.message);
+        if (error.message === 'Firebase: Error (auth/wrong-password).')
+          setLoginError('Wrong password');
+        if (error.message === 'Firebase: Error (auth/user-not-found).')
+          setLoginError('Email does not exist');
+        setLoginLoading(false);
+      }
     }
   };
 
