@@ -34,23 +34,34 @@ export const Register = () => {
       }),
   });
 
+  type FormValues = {
+    email: string;
+    password: string;
+    passwordConfirmation: string;
+  };
+
   // react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
   });
 
+  interface dataProps {
+    email: string;
+    password: string;
+  }
+
   // react-use-form submit
-  const onRegisterSubmit = async (data) => {
+  const onRegisterSubmit = async (data: dataProps) => {
     setRegisterLoading(true);
     try {
       await createUser(data.email, data.password).then(() => navigate('/'));
       setRegisterLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       setRegisterError(error.message);
       console.log(error.message);
       if (error.code === 'auth/email-already-in-use')
@@ -60,9 +71,9 @@ export const Register = () => {
   };
 
   const registerVariants = {
-    hidden: { opacity: 0, y: '100vh' },
-    visible: { opacity: 1, y: '0' },
-    exit: { opacity: 0, y: '-100vh' },
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 },
   };
 
   return (
@@ -86,7 +97,8 @@ export const Register = () => {
             className='login__input'
             {...register('email')}
             placeholder='✉ Email'
-            style={errors.email ? { borderColor: 'red' } : null}
+            autoComplete='email'
+            style={errors.email ? { borderColor: 'red' } : undefined}
           />
           {errors.email?.message ? (
             <p className='text--error'>{errors.email?.message}</p>
@@ -98,7 +110,8 @@ export const Register = () => {
             {...register('password')}
             type='password'
             placeholder='🗝 Password'
-            style={errors.password ? { borderColor: 'red' } : null}
+            autoComplete='current-password'
+            style={errors.password ? { borderColor: 'red' } : undefined}
           />
           {errors.password?.message ? (
             <p className='text--error'>{errors.password?.message}</p>
@@ -110,7 +123,10 @@ export const Register = () => {
             {...register('passwordConfirmation')}
             type='password'
             placeholder='🗝 Confirm password'
-            style={errors.passwordConfirmation ? { borderColor: 'red' } : null}
+            autoComplete='current-password'
+            style={
+              errors.passwordConfirmation ? { borderColor: 'red' } : undefined
+            }
           />
           {errors.passwordConfirmation?.message ? (
             <p className='text--error'>

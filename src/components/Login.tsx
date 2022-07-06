@@ -29,24 +29,34 @@ export const Login = () => {
       .min(8, 'Password is too short'),
   });
 
+  type FormValues = {
+    email: string;
+    password: string;
+  };
+
   // react-use-form
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
   });
 
+  interface dataProps {
+    email: string;
+    password: string;
+  }
+
   // react-use-form submit
-  const onLoginSubmit = async (data) => {
+  const onLoginSubmit = async (data: dataProps) => {
     setLoginLoading(true);
     try {
       await logIn(data.email, data.password).then(() => navigate('/'));
       setLoginError('');
       setLoginLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       setLoginError(error.message);
       if (error.message === 'Firebase: Error (auth/wrong-password).')
         setLoginError('Wrong password');
@@ -68,9 +78,9 @@ export const Login = () => {
   };
 
   const loginVariants = {
-    hidden: { opacity: 0, y: '-100vh' },
-    visible: { opacity: 1, y: '0' },
-    exit: { opacity: 0, y: '100vh' },
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 },
   };
 
   return (
@@ -94,7 +104,8 @@ export const Login = () => {
             className='login__input'
             {...register('email')}
             placeholder='✉ Email'
-            style={errors.email ? { borderColor: 'red' } : null}
+            autoComplete='email'
+            style={errors.email ? { borderColor: 'red' } : undefined}
           />
           {errors.email?.message ? (
             <p className='text--error'>{errors.email?.message}</p>
@@ -106,7 +117,8 @@ export const Login = () => {
             {...register('password')}
             type='password'
             placeholder='🗝 Password'
-            style={errors.password ? { borderColor: 'red' } : null}
+            autoComplete='current-password'
+            style={errors.password ? { borderColor: 'red' } : undefined}
           />
           {errors.password?.message ? (
             <p className='text--error'>{errors.password?.message}</p>
