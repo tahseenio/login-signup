@@ -42,11 +42,13 @@ export const ForgotPassword = () => {
       await forgotPassword(data.email);
       setResetPassText('Success! a password reset email has been sent');
       setResetPassLoading(false);
-    } catch (error: any) {
-      setResetPassText(error.message);
-      if (error.message === 'Firebase: Error (auth/user-not-found).') {
-        setResetPassText('Email not found. Check again');
-        setResetPassLoading(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        setResetPassText(error.message);
+        if (error.message === 'Firebase: Error (auth/user-not-found).') {
+          setResetPassText('Email not found. Check again');
+          setResetPassLoading(false);
+        }
       }
     }
   };
