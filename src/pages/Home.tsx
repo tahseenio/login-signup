@@ -9,7 +9,7 @@ export const Home = () => {
   const { user, handleSignout, db } = useFirebaseContext();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [colorValues, setColorValues] = useState([]);
+  const [colorValues, setColorValues] = useState<number[]>([]);
   const [redValue, setRedValue] = useState(0);
   const [blueValue, setBlueValue] = useState(0);
   const [yellowValue, setYellowValue] = useState(0);
@@ -30,7 +30,14 @@ export const Home = () => {
     }
   };
 
-  const updateColorDatabase = async (arr) => {
+  interface colorProps {
+    red: number;
+    blue: number;
+    green: number;
+    yellow: number;
+  }
+
+  const updateColorDatabase = async (arr: colorProps) => {
     try {
       const userNewColors = { ...arr };
       await setDoc(doc(db, 'users', `${user.email}`), userNewColors, {
@@ -74,15 +81,18 @@ export const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleColorChange = (e, color) => {
+  const handleColorChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    color: string
+  ) => {
     if (typeof e.target.value === 'number') console.log('A NUMER');
-    if (color === 'red') setRedValue(e.target.value);
-    if (color === 'blue') setBlueValue(e.target.value);
-    if (color === 'yellow') setYellowValue(e.target.value);
-    if (color === 'green') setGreenValue(e.target.value);
+    if (color === 'red') setRedValue(Number(e.target.value));
+    if (color === 'blue') setBlueValue(Number(e.target.value));
+    if (color === 'yellow') setYellowValue(Number(e.target.value));
+    if (color === 'green') setGreenValue(Number(e.target.value));
   };
 
-  const handleColorSubmit = (e) => {
+  const handleColorSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newColors = {
       red: Number(redValue),
@@ -133,7 +143,7 @@ export const Home = () => {
                 <Doughnut data={data} />
               )}
             </div>
-            <form onSubmit={handleColorSubmit}>
+            <form onSubmit={(e) => handleColorSubmit(e)}>
               <p>Red</p>
               <input
                 type='text'
