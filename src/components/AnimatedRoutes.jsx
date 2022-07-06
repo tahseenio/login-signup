@@ -1,9 +1,5 @@
-import React from 'react'
-import {
-  Routes,
-  Route,
-  useLocation,
-} from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import { Home } from '../pages/Home';
 import { Login } from './Login';
@@ -15,7 +11,7 @@ import { AnimatePresence } from 'framer-motion';
 const AnimatedRoutes = () => {
   const location = useLocation();
   return (
-    <AnimatePresence exitBeforeEnter={true}>
+    <AnimatePresence exitBeforeEnter={true} initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route
           path='/'
@@ -30,7 +26,7 @@ const AnimatedRoutes = () => {
         <Route path='/forgot' element={<ForgotPassword />} />
       </Routes>
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default AnimatedRoutes
+export default AnimatedRoutes;
