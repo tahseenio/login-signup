@@ -35,7 +35,4 @@ A sleek login and signup system where users are able to create a new account or 
 
 
 ## Future optimizations
-- I will consider converting the project to TypeScript to learn types for Firebase based projects and reinforcing for types for Context API.
-- Fix the exit animations for all forms so that they are less jarring to the eye (especially when they fly off the screen very quickly without changing opacity to 0)
 - Add a nice layout once the user has logged in. I have put this on the backburner as this project was more of a focus on learning to build forms, input validation and authentication using a backend.
-- Make the chart skeleton loading state responsive as it seems to have issues when the viewport gets smaller.
