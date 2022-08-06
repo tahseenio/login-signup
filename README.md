@@ -12,6 +12,7 @@ A sleek login and signup system where users are able to create a new account or 
 ## Tech and Packages Used
 <p align="center">
   <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" >
+  <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" >
   <img src="https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white" >
   <img src="https://img.shields.io/badge/Framer-black?style=for-the-badge&logo=framer&logoColor=blue" >
   <img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white" >
@@ -34,7 +35,4 @@ A sleek login and signup system where users are able to create a new account or 
 
 
 ## Future optimizations
-- I will consider converting the project to TypeScript to learn types for Firebase based projects and reinforcing for types for Context API.
-- Fix the exit animations for all forms so that they are less jarring to the eye (especially when they fly off the screen very quickly without changing opacity to 0)
 - Add a nice layout once the user has logged in. I have put this on the backburner as this project was more of a focus on learning to build forms, input validation and authentication using a backend.
-- Make the chart skeleton loading state responsive as it seems to have issues when the viewport gets smaller.
